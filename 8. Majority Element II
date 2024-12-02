@@ -1,0 +1,103 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    // Function to find the majority elements in the array
+    vector<int> findMajority(vector<int>& a) {
+        // Your code goes here.
+        int size = a.size(), c = 0, n = size / 3;
+        vector<int> v;
+        if(size < 2)
+        {
+            return a;
+        }
+        sort(a.begin(), a.end());
+        
+        for(int i = 0; i < size; i++)
+        {
+            c = count(a.begin(), a.end(), a[i]);
+            if (c > n)
+            {
+                v.push_back(a[i]);
+            }
+            while (i + 1 < size && a[i] == a[i + 1])
+            {
+                i++;
+            }
+        }
+        sort(v.begin(), v.end());
+        return v;  
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    cin.ignore();
+    while (t--) {
+
+        string s;
+        getline(cin, s);
+        stringstream ss(s);
+        vector<int> nums;
+        int num;
+        while (ss >> num) {
+            nums.push_back(num);
+        }
+        Solution ob;
+        vector<int> ans = ob.findMajority(nums);
+        if (ans.empty()) {
+            cout << "[]";
+        } else {
+            for (auto &i : ans)
+                cout << i << " ";
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
+
+===================================================================
+GPT(Using Maps and Frequency)
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        auto findMajority = [](vector<int>& a) -> vector<int> {
+            int size = a.size();
+            vector<int> result;
+
+            if (size < 2) {
+                return a; // If less than 2 elements, return input
+            }
+
+            // Count occurrences using a frequency map
+            unordered_map<int, int> freq;
+            for (int num : a) {
+                freq[num]++;
+            }
+
+            // Check majority condition
+            for (auto& [key, count] : freq) {
+                if (count > size / 3) {
+                    result.push_back(key);
+                }
+            }
+
+            sort(result.begin(), result.end()); // Optional: Sort the result
+            return result;
+        };
+
+        return findMajority(nums); // Call the lambda function
+    }
+};

@@ -43,3 +43,225 @@ int main() {
     }
 }
 // } Driver Code Ends
+=============================================================================================
+GPT ExtrAA
+### **Dynamic Programming (DP) Concept**
+
+Dynamic Programming (DP) is a problem-solving paradigm used to solve optimization problems by breaking them into overlapping subproblems and solving each subproblem just once,
+storing the results for future use. It relies on two main techniques:
+
+1. **Overlapping Subproblems**: The problem can be divided into smaller subproblems that are solved multiple times during recursion. DP ensures these subproblems are solved only once and reused when needed.
+   
+2. **Optimal Substructure**: A problem exhibits optimal substructure if the solution to the problem can be constructed from the solutions of its subproblems.
+
+Instead of solving the same problem repeatedly, DP stores results in a data structure like an array, table, or dictionary (memoization or tabulation). 
+
+---
+
+### **Kadane’s Algorithm and Dynamic Programming**
+
+Kadane's Algorithm is a classical example of applying dynamic programming to solve the **Maximum Subarray Sum Problem**, which involves finding the largest sum of a contiguous subarray in a given array of
+integers. Here's how DP is used in Kadane’s Algorithm:
+
+---
+
+#### **Understanding the Problem**
+
+Given an array `arr` of size `n`, find the contiguous subarray (containing at least one number) which has the largest sum.
+
+Example:
+- Input: `arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]`
+- Output: `6`  
+  Explanation: The subarray `[4, -1, 2, 1]` has the largest sum = 6.
+
+---
+
+#### **Dynamic Programming in Kadane's Algorithm**
+
+Kadane’s algorithm uses a **DP approach** to keep track of two states for every index `i`:
+1. **Current Subarray Sum (`currentSum`)**: The maximum sum of the subarray ending at index `i`.
+2. **Global Maximum (`maxSum`)**: The maximum sum across all subarrays considered so far.
+
+The core idea is to decide, for each element in the array, whether to:
+- Include the current element in the existing subarray.
+- Start a new subarray from the current element.
+
+---
+
+#### **Key Steps in Kadane’s Algorithm**
+
+1. **Initialization**:
+   - Start with the first element:
+     ```
+     currentSum = arr[0]
+     maxSum = arr[0]
+     ```
+
+2. **Recursive Relation**:
+   For each index `i` from 1 to `n-1`, compute:
+   - `currentSum = max(arr[i], currentSum + arr[i])`
+     - If adding the current element increases the sum, continue the subarray.
+     - Otherwise, start a new subarray with the current element.
+   - Update the global maximum:
+     - `maxSum = max(maxSum, currentSum)`
+
+3. **Final Output**:
+   After traversing the entire array, `maxSum` will hold the largest sum of any contiguous subarray.
+
+---
+
+#### **Example Walkthrough**
+Let’s trace Kadane’s Algorithm on `arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]`:
+
+| Index | `arr[i]` | `currentSum` (max of `arr[i]` and `currentSum + arr[i]`) | `maxSum` |
+|-------|----------|---------------------------------------------------------|----------|
+|   0   |   -2     | -2                                                      | -2       |
+|   1   |    1     | 1                                                       | 1        |
+|   2   |   -3     | -2                                                      | 1        |
+|   3   |    4     | 4                                                       | 4        |
+|   4   |   -1     | 3                                                       | 4        |
+|   5   |    2     | 5                                                       | 5        |
+|   6   |    1     | 6                                                       | 6        |
+|   7   |   -5     | 1                                                       | 6        |
+|   8   |    4     | 5                                                       | 6        |
+
+**Final Result**: `maxSum = 6`
+
+---
+
+#### **Why Kadane’s Algorithm Uses DP**
+1. **Overlapping Subproblems**: The value of `currentSum` at index `i` depends on the `currentSum` at `i-1`. Kadane’s algorithm avoids recomputing this by storing and reusing the results
+of previous calculations.
+   
+2. **Optimal Substructure**: At every index, the optimal solution (`currentSum`) is derived from the optimal solution of the previous subarray (`currentSum + arr[i]`) or the current
+element itself (`arr[i]`).
+
+Thus, Kadane’s algorithm efficiently solves the problem in **O(n)** time using the DP paradigm with **constant space**.
+
+---
+
+### **Where is DP Explicitly Used in Kadane’s Algorithm?**
+- The `currentSum` acts as the **DP state**, representing the maximum sum of the subarray ending at index `i`.
+- By maintaining and updating `currentSum` iteratively, Kadane’s algorithm leverages the **recursive relation** of DP:
+  ```
+  currentSum[i] = max(arr[i], currentSum[i-1] + arr[i])
+  ```
+- It avoids recomputation and achieves optimal time complexity by directly storing the result of the previous step.
+
+---
+
+### **Applications of Kadane's Algorithm**
+Kadane’s algorithm (and its DP approach) is widely used in:
+1. **Maximum Sum of Contiguous Subarray Problems**:
+   - For 1D arrays or extensions to 2D grids.
+2. **Stock Price Problems**:
+   - Finding the maximum profit from buying and selling stocks.
+3. **Path Problems in Graphs**:
+   - Finding paths with the maximum sum in specific scenarios.
+
+Kadane's algorithm is a textbook example of how dynamic programming can simplify and optimize problems with overlapping subproblems and optimal substructure.
+
+HINDI
+-----
+### **डायनेमिक प्रोग्रामिंग (DP) का कॉन्सेप्ट**
+
+डायनेमिक प्रोग्रामिंग (DP) एक समस्या-समाधान विधि है, जो किसी समस्या को छोटे-छोटे हिस्सों (subproblems) में तोड़कर हल करती है और हर हिस्से का हल सिर्फ एक बार निकालती है। DP मुख्य रूप से इन दो तकनीकों पर आधारित है:
+
+1. **ओवरलैपिंग सबप्रॉब्लम्स (Overlapping Subproblems)**: समस्या को छोटे हिस्सों में तोड़ा जा सकता है, और इन्हें कई बार हल किया जाता है। DP सुनिश्चित करता है कि इन सबप्रॉब्लम्स को सिर्फ एक बार हल किया जाए और भविष्य में उनका उपयोग किया जाए।  
+   
+2. **ऑप्टिमल सबस्ट्रक्चर (Optimal Substructure)**: यदि किसी समस्या का समाधान उसके छोटे हिस्सों के समाधान से निकाला जा सकता है, तो यह ऑप्टिमल सबस्ट्रक्चर कहलाता है।
+
+DP में बार-बार एक ही समस्या को हल करने की बजाय, उनके हल को स्टोर करके बार-बार उपयोग किया जाता है। यह स्टोरेज किसी डेटा संरचना जैसे ऐरे, टेबल, या डिक्शनरी में किया जाता है।
+
+---
+
+### **कडाने का एल्गोरिदम और डायनेमिक प्रोग्रामिंग**
+
+**कडाने का एल्गोरिदम** डायनेमिक प्रोग्रामिंग का उपयोग करते हुए **मैक्सिमम सबएरे सम समस्या (Maximum Subarray Sum Problem)** को हल करता है। इसमें दिए गए इंटीजर एरे में सबसे बड़े सम वाली **कॉन्टिग्युअस सबएरे** (contiguous subarray)
+खोजी जाती है।
+
+---
+
+#### **समस्या को समझें**
+
+आपको एक एरे `arr[]` दिया गया है। आपको उस सबएरे को ढूंढना है जिसमें सबसे बड़ा सम हो।
+
+**उदाहरण**:  
+- **इनपुट**: `arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]`  
+- **आउटपुट**: `6`  
+  **स्पष्टीकरण**: `[4, -1, 2, 1]` सबएरे का सम 6 है, जो सबसे बड़ा है।
+
+---
+
+#### **कडाने के एल्गोरिदम में डायनेमिक प्रोग्रामिंग**
+
+कडाने का एल्गोरिदम हर इंडेक्स `i` पर दो स्टेट्स को ट्रैक करता है:
+
+1. **करंट सबएरे सम (`currentSum`)**: इंडेक्स `i` पर खत्म होने वाले सबएरे का अधिकतम सम।
+2. **ग्लोबल मैक्सिमम (`maxSum`)**: अब तक खोजे गए सभी सबएरे का सबसे बड़ा सम।
+
+एल्गोरिदम यह तय करता है कि:
+- वर्तमान तत्व (`arr[i]`) को मौजूदा सबएरे में जोड़ा जाए। 
+- या, एक नया सबएरे शुरू किया जाए।
+
+---
+
+#### **कडाने के एल्गोरिदम के चरण**
+
+1. **इनिशियलाइज़ेशन**:  
+   पहले तत्व से शुरू करें:
+   ```
+   currentSum = arr[0]
+   maxSum = arr[0]
+   ```
+
+2. **रिलेशन**:
+   प्रत्येक इंडेक्स `i` (1 से `n-1` तक) के लिए:
+   - `currentSum = max(arr[i], currentSum + arr[i])`  
+     - यदि वर्तमान तत्व जोड़ने से सम बढ़ता है, तो सबएरे जारी रखें।
+     - अन्यथा, वर्तमान तत्व से नया सबएरे शुरू करें।
+   - ग्लोबल मैक्सिमम अपडेट करें:
+     - `maxSum = max(maxSum, currentSum)`
+
+3. **आउटपुट**:  
+   पूरे एरे को ट्रैवर्स करने के बाद, `maxSum` सबसे बड़े सम का मान होगा।
+
+---
+
+#### **उदाहरण: कडाने का एल्गोरिदम**
+मान लीजिए `arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]`। आइए इसका ट्रेस देखें:
+
+| इंडेक्स | `arr[i]` | `currentSum` (max of `arr[i]` और `currentSum + arr[i]`) | `maxSum` |
+|---------|----------|-------------------------------------------------------|----------|
+|   0     |   -2     | -2                                                    | -2       |
+|   1     |    1     | 1                                                     | 1        |
+|   2     |   -3     | -2                                                    | 1        |
+|   3     |    4     | 4                                                     | 4        |
+|   4     |   -1     | 3                                                     | 4        |
+|   5     |    2     | 5                                                     | 5        |
+|   6     |    1     | 6                                                     | 6        |
+|   7     |   -5     | 1                                                     | 6        |
+|   8     |    4     | 5                                                     | 6        |
+
+**अंतिम परिणाम**: `maxSum = 6`
+
+---
+
+#### **डायनेमिक प्रोग्रामिंग का उपयोग कडाने के एल्गोरिदम में**
+1. **ओवरलैपिंग सबप्रॉब्लम्स**: `currentSum` का मान इंडेक्स `i` पर इंडेक्स `i-1` पर निर्भर करता है। DP सुनिश्चित करता है कि यह मान एक बार ही निकाला जाए और बार-बार उपयोग किया जाए।  
+   
+2. **ऑप्टिमल सबस्ट्रक्चर**: हर इंडेक्स पर `currentSum` को पिछले सबएरे (`currentSum + arr[i]`) या सिर्फ वर्तमान तत्व (`arr[i]`) के आधार पर निकाला जाता है।  
+
+इस प्रकार, कडाने का एल्गोरिदम **O(n)** समय में समस्या को हल करता है और डायनेमिक प्रोग्रामिंग की ताकत का उपयोग करता है।
+
+---
+
+### **कडाने का एल्गोरिदम कहां उपयोगी है?**
+1. **मैक्सिमम सबएरे सम समस्या**:
+   - 1D एरे के लिए या 2D ग्रिड तक विस्तारित।
+2. **स्टॉक प्राइस समस्या**:
+   - अधिकतम लाभ खोजने के लिए।
+3. **ग्राफ में पाथ समस्या**:
+   - अधिकतम सम वाले पाथ को ढूंढने के लिए।
+
+कडाने का एल्गोरिदम डायनेमिक प्रोग्रामिंग का एक आदर्श उदाहरण है, जो ओवरलैपिंग सबप्रॉब्लम्स और ऑप्टिमल सबस्ट्रक्चर को सुलझाने में मदद करता है।

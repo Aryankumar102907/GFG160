@@ -1,0 +1,58 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    int singleDigit(int n) {
+        // code here
+        // Repeat until n becomes a single digit
+        while (n >= 10) 
+        { 
+            int sum = 0;
+            while (n > 0)
+            {
+                sum += n % 10;
+                n = n / 10;
+            }
+            n = sum; 
+        }
+        return n;
+    }
+};
+
+    //     int sum;
+    //     string s = to_string(n);
+    //     while(s.size() != 1)
+    //     {
+    //         sum = 0;
+    //         for(int i = 0; i < s.size(); i++)
+    //         {
+    //             sum += (s[i] - '0');
+    //             // sum = sum + atoi(string(1, s[i]).c_str());
+    //         }
+    //         s = to_string(sum);
+    //     }
+    //     return stoi(s);
+    // }
+// };
+
+//{ Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N;
+        cin >> N;
+        Solution ob;
+        int ans = ob.singleDigit(N);
+        cout << ans << endl;
+
+        cout << "~"
+             << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends

@@ -62,6 +62,48 @@ class Solution {
         return result;
     }
 };
+===================================================================
+AlterNate:
+class Solution {
+  public:
+    int countStudents(vector<int> &arr, int pages) {
+        int students = 1;
+        long long pagesStudent = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            if (pagesStudent + arr[i] <= pages) {
+                pagesStudent += arr[i];
+            } else {
+                students++;
+                pagesStudent = arr[i];
+            }
+        }
+        return students;
+    }
+
+    int findPages(vector<int> &arr, int k) {
+        int n = arr.size();
+        if (k > n) return -1; // Corrected the size check
+
+        int low = *max_element(arr.begin(), arr.end());
+        int high = accumulate(arr.begin(), arr.end(), 0);
+        int result = -1; // To store the minimum maximum pages
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int students = countStudents(arr, mid);
+
+            if (students > k) {
+                low = mid + 1; // Increase pages to reduce the number of students
+            } else {
+                result = mid;  // Store the possible answer
+                high = mid - 1; // Try for a smaller maximum
+            }
+        }
+
+        return result;
+    }
+};
+========================================================================
 
 //{ Driver Code Starts.
 

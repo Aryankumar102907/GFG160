@@ -1,0 +1,100 @@
+//{ Driver Code Starts
+// Initial function template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    bool exactDistribution(vector<int> &a, int maxLim, int stud)
+    {
+        int count = 1;
+        int n = a.size();
+        int sum = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(sum + a[i] <= maxLim)
+            {
+                sum = sum + a[i];
+            }
+            else
+            {
+                // sum = 0;
+                // sum = sum + a[i];  //override value
+                sum = a[i];
+                count++;
+            }
+        }
+        if(count <= stud)
+        {
+            return true;
+        }
+        return false;
+        
+    }
+    int findPages(vector<int> &a, int k) {
+        // code here
+        int n = a.size();
+        int result = -1;
+        if(k > n)
+        {
+            return -1;
+        }
+        int lo = *max_element(a.begin(), a.end());
+        int hi = accumulate(a.begin(), a.end(), 0);
+        int mid;
+        while(lo <= hi)
+        {
+            mid = (lo + hi) / 2;
+            
+            if(exactDistribution(a, mid, k) == true)
+            {
+                result = mid;  // Store the possible answer
+                hi = mid - 1;
+            }
+            else
+            {
+                lo = mid + 1; 
+            }
+        }
+        return result;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int test_case;
+    cin >> test_case;
+    cin.ignore();
+    while (test_case--) {
+
+        int d;
+        vector<int> arr, brr, crr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
+        }
+        getline(cin, input);
+        ss.clear();
+        ss.str(input);
+        while (ss >> number) {
+            crr.push_back(number);
+        }
+        d = crr[0];
+        int n = arr.size();
+        Solution ob;
+        int ans = ob.findPages(arr, d);
+        cout << ans << endl;
+
+        cout << "~"
+             << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
